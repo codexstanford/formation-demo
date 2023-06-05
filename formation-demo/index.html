@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="index.css">
+    <title>Computable Contract Demo</title>
+  
+</head>
+<body>
+    <div class="container" id="page-container">
+        <div class="column" id="contract-specification-container">
+            <div class="panel-title">Contract Specification</div>
+            <div class="panel-content-container" id="specification-option-container">
+                <div class="specification-section">
+                    <div class="specification-section-title">1. POLICY IN EFFECT AND CONDITIONS</div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="wellness_visit_condition-option" class="option-checkbox" name="wellness_visit_condition">
+                        <label for="wellness_visit_condition" class="option-checkbox-label"> Require Wellness Visit </label>
+                    </div>
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">2. BENEFITS</div>
+                    
+                    <div class="specification-option">
+                        <input type="checkbox" id="usa_hospital_condition-option" class="option-checkbox" name="usa_hospital_condition">
+                        <label for="usa_hospital_condition" class="option-checkbox-label"> Require US Hospital </label>
+                    </div>
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">3. GENERAL EXCLUSIONS</div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="general_exclusion_skydiving-option" class="option-checkbox" name="general_exclusion_skydiving">
+                        <label for="general_exclusion_skydiving" class="option-checkbox-label"> Skydiving </label>
+                    </div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="general_exclusion_military_service-option" class="option-checkbox" name="general_exclusion_military_service">
+                        <label for="general_exclusion_military_service" class="option-checkbox-label"> Military Service </label>
+                    </div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="general_exclusion_firefighter_service-option" class="option-checkbox" name="general_exclusion_firefighter_service">
+                        <label for="general_exclusion_firefighter_service" class="option-checkbox-label"> Firefighter Service </label>
+                    </div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="general_exclusion_police_service-option" class="option-checkbox" name="general_exclusion_police_service">
+                        <label for="general_exclusion_police_service" class="option-checkbox-label"> Police Service </label>
+                    </div>
+                    <div class="specification-option">
+                        <input type="checkbox" id="general_exclusion_age_is_constraint-option" class="option-checkbox" name="general_exclusion_age_is_constraint">
+                        <label for="general_exclusion_age_is_constraint" class="option-checkbox-label"> Age Limit: &nbsp;&nbsp;</label>
+
+                        <input type="number" id="general_exclusion_age_amount-option" class="option-number" name="general_exclusion_age_amount-option">
+                    </div>
+                    
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">4. GENERAL CONDITIONS</div>
+                    This section of the contract is fixed.
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">5. BENEFIT AND PREMIUM AMOUNTS</div>
+                    <div class="specification-option">
+                        <label for="benefit_amount" class="option-checkbox-label"> Benefit Amount: </label>
+                        <input type="number" id="benefit_amount-option" class="option-number" name="benefit_amount">
+                    </div>
+                    <div class="specification-option">
+                        <label for="premium_amount" class="option-checkbox-label"> Premium Amount: </label>
+                        <input type="number" id="premium_amount-option" class="option-number" name="premium_amount">
+                    </div>
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">6. SIGNATURE</div>
+                    This section of the contract is fixed.
+                </div>
+            </div>
+            <div class="button_container" id="button_container_update_button" hidden>
+                <input id="update_button" type='button' value="Update Contracts" hidden/>
+            </div>
+            <div class="specification-option" hidden >
+                <input type="checkbox" id="auto-update-checkbox" class="option-checkbox" name="auto-update-checkbox">
+                <label for="auto-update-checkbox" class="option-checkbox-label" id="auto-update-checkbox-label"> Auto Update </label>
+            </div>
+        </div>
+        <!--/*
+// Static
+claim.policy(claim1,policy1) // always claim.policy(claim1, policy1)
+claim.hospitalization(claim1,hosp1) // Always claim.hospitalization(claim1, hosp1)
+hospitalization.patient(hosp1, person1)
+
+// Policy facts
+policy.signed(policy1)
+policy.premium_amount_aid(policy1, A)
+policy.wellness_visit_confirmation_provided(policy1)
+policy.canceled(policy1)
+
+// Personal facts
+person.age(person1, A)
+
+// Claim facts
+claim.causal_event(claim1, {skydiving, military_service, firefighting_service, police_service, other})
+*/ -->
+        <div class="column" id="claim-specification-container" hidden >
+            <div class="panel-title">Claim Specification</div>
+            <div class="panel-content-container" id="claim-specification-fields-container">
+                <div id="claim_coverage_indicator" >
+                    
+                </div>
+                <div class="specification-section">
+                    <div class="specification-section-title">POLICY INFORMATION</div>
+
+                    <div class="specification-option">
+                        <label for="policy_signed" class="option-checkbox-label"> Have signed policy: </label>
+                        <input type="checkbox" id="policy_signed-field" class="option-checkbox" name="policy_signed">
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="paid_premium_amount" class="option-checkbox-label"> Amount paid for insurance premium so far: $</label>
+                        <input type="number" id="paid_premium_amount-field" class="option-number" name="paid_premium_amount">
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="wellness_visit_confirmation_provided" class="option-checkbox-label"> Have provided confirmation of wellness visit: </label>
+                        <input type="checkbox" id="wellness_visit_confirmation_provided-field" class="option-checkbox" name="wellness_visit_confirmation_provided">
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="policy_canceled" class="option-checkbox-label"> Policy has been canceled: </label>
+                        <input type="checkbox" id="policy_canceled-field" class="option-checkbox" name="policy_canceled">
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="specification-section">
+                    <div class="specification-section-title">PATIENT INFORMATION</div>
+                    <div class="specification-option">
+                        <label for="patient_age" class="option-checkbox-label"> Patient Age: </label>
+                        <input type="number" id="patient_age-field" class="option-number" name="patient_age">
+                    </div>
+                </div>
+
+                <br/>
+                <!--
+                    // Hospitalization facts
+                    hospitalization.reason(hosp1, {sickness, accidental_injury, other})
+                    hospitalization.country(hosp1, C)
+                    
+                    hospitalization.startdate(hosp1,SD)
+                    hospitalization.starttime(hosp1,ST)
+                    hospitalization.enddate(hosp1,ED)
+                    hospitalization.endtime(hosp1,ET)
+                -->
+                <div class="specification-section">
+
+                    
+                    <div class="specification-section-title">HOSPITALIZATION INFORMATION</div>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_reason" class="option-checkbox-label"> Reason for hospitalization: </label>
+                        <select id="hospitalization_reason-field" class="option-dropdown" name="hospitalization_reason">
+                            <option value="none"></option>
+                            <option value="sickness">Sickness</option>
+                            <option value="accidental_injury">Accidental Injury</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="claim_cause" class="option-checkbox-label"> Cause of hospitalization: </label>
+                        <select id="claim_cause-field" class="option-dropdown" name="claim_cause">
+                            <option value="none"></option>
+                            <option value="skydiving">Skydiving</option>
+                            <option value="military_service">Military Service</option>
+                            <option value="firefighting_service">Firefighting Service</option>
+                            <option value="police_service">Police Service</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_country" class="option-checkbox-label"> Country in which hospitalization occurred: </label>
+                        <select id="hospitalization_country-field" class="option-dropdown" name="hospitalization_country">
+                            <option value="none"></option>
+                        </select>
+                    </div>
+
+                    <br/>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_start_date" class="option-checkbox-label"> Start date of hospitalization: </label>
+                        <input type = "date" id="hospitalization_start_date-field" class="option-date" name="hospitalization_start_date"></input>
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_start_time" class="option-checkbox-label"> Start time of hospitalization: </label>
+                        <input type = "time" id="hospitalization_start_time-field" class="option-date" name="hospitalization_start_time"></input>
+                    </div>
+
+                    <br/>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_end_date" class="option-checkbox-label"> End date of hospitalization: </label>
+                        <input type = "date" id="hospitalization_end_date-field" class="option-date" name="hospitalization_end_date"></input>
+                    </div>
+
+                    <div class="specification-option">
+                        <label for="hospitalization_end_time" class="option-checkbox-label"> End time of hospitalization: </label>
+                        <input type = "time" id="hospitalization_end_time-field" class="option-date" name="hospitalization_end_time"></input>
+                    </div>
+
+
+                </div>
+
+                
+            </div>
+        </div>
+        <div class="column" id="trad-contract-container">
+            <div class="panel-title">Traditional Contract</div>
+            <div class="panel-content-container" id="trad-contract-text">
+                <div class="trad-contract-section" id="starting-boilerplate">
+                    <div class = "trad-contract-section-title">SUPPLEMENTAL HOSPITALIZATION CASH POLICY</div>
+                    <div class = "trad-contract-section-text">
+                        Between: <br>
+                        CODEX INSURANCE LIMITED (“us”) <br>
+                        and <br>
+                        ___________________ (“You”) <br>
+                        This policy is provided on the following terms and conditions:
+                        
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-1">
+                    <div class = "trad-contract-section-title">1. POLICY IN EFFECT AND CONDITIONS</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-1.1">
+                            1.1 The payment of any benefit under this policy is conditioned on the policy being in effect at the time 
+                            of the hospitalization for sickness or accidental injury on which the claim for such benefit is premised. <br>
+                            The policy will be in effect if: <br>
+                            (a) This agreement is signed, <br>
+                            (b) The applicable premium for the policy period has been paid, and <br>
+                            (c) <span class="wellness_visit_condition-text-ref">The condition set out in Section 1.3 is still pending or has been satisfied in a timely fashion, and <br>
+                            (d) </span>The policy has not been canceled.
+                            <!--<span id="wellness_visit_condition-delimiter">, and</span> <br>
+                            <div id="wellness_visit_condition-text">(d) The policy has not been canceled.</div>-->
+                        </div>
+
+                        <div class = "trad-contract-subsection" id="section-1.2">
+                            1.2 Cancelation will be deemed to have occurred if there is fraud, or any misrepresentation or material 
+                            withholding of in any information provided by you to the Company in connection with any 
+                            communication or information relating to this policy<span class="wellness_visit_condition-text-ref">, or if the condition set out in Section 1.3 has not be 
+                            satisfied in a timely fashion. It will also be automatically canceled at midnight, US Eastern time then in 
+                            effect, on the last day of the policy term described in Section 5 below</span>.<br>
+                        </div>
+
+                        <div class = "trad-contract-subsection" id="section-1.3">
+                            <div id="wellness_visit_condition-text">
+                                1.3 No later than the 7th month anniversary of the effective date of this policy, you will supply us with 
+                                written confirmation from the medical provider in question of a wellness visit for yourself with a 
+                                qualified medical provider occurring no later than the 6th month anniversary of the effective date of this
+                                policy. 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-2">
+                    <div class = "trad-contract-section-title">2. BENEFITS</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-2.1">
+                            2.1 If you have been confined in a hospital as a result of sickness or accidental Injury, we will pay you the 
+                            Daily Hospital Income Benefit shown in Section 5 below.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-2.2">
+                            2.2 The Daily Hospital Income Benefit will only be payable for each (24 hour) day of continuous 
+                            confinement in a hospital<span id="usa_hospital_condition-text"> in the United States</span>, from the first day of confinement and for a period not 
+                            exceeding three hundred and sixty-five (365) days for all such confinement due to sickness or accidental 
+                            Injury.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-2.3">
+                            2.3 To trigger any benefit, a claim must be made to the Company setting out the basis for making the 
+                            claim and for there being no exclusion or cancelation.
+                        </div>
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-3">
+                    <div class = "trad-contract-section-title">3. GENERAL EXCLUSIONS</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-3.1">
+                            <div id="exclusion-clause-header-exclusions-present">
+                                3.1 Your policy will not apply to, and no benefit will be paid with respect to, any event causing sickness 
+                                or accidental injury arising directly or indirectly out of:
+                            </div>
+                            <div id="exclusion-clause-header-exclusions-absent" hidden>
+                                3.1 No general exclusions apply to your policy.
+                            </div>
+                            <div id="exclusion-clauses">
+                                <div class = "exclusion-clause" id="general_exclusion_skydiving-text">
+                                    <span class="exclusion-clause-alph-id">(a)</span> Skydiving<span class="exclusion-clause-delimiter">; or</span>
+                                </div>
+                                <div class = "exclusion-clause" id="general_exclusion_military_service-text">
+                                    <span class="exclusion-clause-alph-id">(b)</span> Service in the military<span class="exclusion-clause-delimiter">; or</span>
+                                </div>
+                                <div class = "exclusion-clause" id="general_exclusion_firefighter_service-text">
+                                    <span class="exclusion-clause-alph-id">(c)</span> Service as a fire fighter<span class="exclusion-clause-delimiter">; or</span>
+                                </div>
+                                <div class = "exclusion-clause" id="general_exclusion_police_service-text">
+                                    <span class="exclusion-clause-alph-id">(d)</span> Service in the police<span class="exclusion-clause-delimiter">; or</span>
+                                </div>
+                                <div class = "exclusion-clause" id="general_exclusion_age_is_constraint-text">
+                                    <span class="exclusion-clause-alph-id">(e)</span> If your age at the time of the hospitalization is equal to or greater than <span id="general_exclusion_age_amount-text">75</span> years of age<span class="exclusion-clause-delimiter">.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-4">
+                    <div class = "trad-contract-section-title">4. GENERAL CONDITIONS</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-4.1">
+                            4.1 Where does Your Policy apply?
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.1.1">
+                            4.1.1 Your Policy insures You twenty-four (24) hours a day anywhere in the world.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.2">
+                            4.2 Arbitration
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.2.1">
+                            4.2.1 If any dispute or disagreement arises regarding any matter pertaining to or concerning this Policy, 
+                            the dispute or disagreement must be referred to arbitration in accordance with the provisions of the 
+                            Arbitration Act (Cap. 10) and any statutory modification or re-enactment thereof then in force, such 
+                            arbitration to be commenced within three (3) months from the day such parties are unable to settle the 
+                            dispute or difference. If You fail to commence arbitration in accordance with this clause, it is agreed that 
+                            any cause of action and any right to make a claim that You have or may have against Us shall be 
+                            extinguished completely. Where there is a dispute or disagreement, the issuance of a valid arbitration 
+                            award shall also be a condition precedent to our liability under this Policy.
+
+                            In no case shall You seek to recover on this Policy before the expiration of sixty (60) days after written 
+                            proof of claim has been submitted to Us in accordance with the provisions of this Policy.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.3">
+                            4.3 Laws of New York
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.3.1">
+                            4.3.1 Your Policy is governed by the laws of New York.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.4">
+                            4.4 US Currency
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.4.1">
+                            4.4.1 All payments by You to Us and by Us to You or someone else under your policy must be in United 
+                            States currency.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.5">
+                            4.5 Premium
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.5.1">
+                            4.5.1 The premium described in Section 5 below shall be paid in one lump sum at the signing of the 
+                            policy
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-4.6">
+                            4.6 Policy Term <br>
+                            The term of this policy will begin on the date accepted by Us as signified by our signature of the policy
+                            (the effective date) and will last for a period of one year from that date, unless previously canceled 
+                            pursuant to Section 1 above.
+                        </div>
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-5">
+                    <div class = "trad-contract-section-title">5. BENEFIT AND PREMIUM AMOUNTS</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-5.1">
+                            5.1 The Daily Hospital Benefit amount under this policy is $<span id="benefit_amount-text">500</span>.
+                        </div>
+                        <div class = "trad-contract-subsection" id="section-5.2">
+                            5.2 The premium amount for the policy is $<span id="premium_amount-text">2000</span>.
+                        </div>
+                    </div>
+                </div>
+                <div class="trad-contract-section" id="section-6">
+                    <div class = "trad-contract-section-title">6. SIGNATURE</div>
+                    <div class = "trad-contract-section-text">
+                        <div class = "trad-contract-subsection" id="section-signature">
+                            Please indicate your agreement by signing on the line designated below and returning this to us with 
+                            your check for the premium. <br>
+                            YOUR SIGNATURE: ___________________ DATE: ____________________ <br>
+                            OUR SIGNATURE: &nbsp;&nbsp;___________________ DATE: _____________________
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="column" id="computable-contract-container">
+            <div class="panel-title">Computable Contract</div>
+            <div class="panel-content-container" id="computable-contract-container">
+                <textarea class='readonly_textarea' id='computable-contract-text'  readonly wrap='soft'>
+                </textarea>
+
+            </div>
+        </div>
+    </div>
+    <div id="page-footer-container">
+        <div class="button_container" id="button_container_switch_mode_button">
+            <input id="switch_mode_button" type='button' value="Switch to Claims Analysis"/>
+        </div>
+    </div>
+  <script language='javascript' src='./index.js'></script>
+  <script language='javascript' src='../src/epilog.js'></script>
+</body>
+</html>
